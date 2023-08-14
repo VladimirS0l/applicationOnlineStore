@@ -20,6 +20,7 @@ public class Product {
     private String name;
     @Column(name = "description")
     private String description;
-
+    @ManyToOne()
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
 }

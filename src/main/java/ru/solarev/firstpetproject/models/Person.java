@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Entity
 @Table(name = "Person")
@@ -32,6 +33,8 @@ public class Person {
     private String password;
     @Column(name = "role")
     private String role;
+    @OneToMany(mappedBy = "person")
+    List<Product> products;
 
     public Person() {
     }
