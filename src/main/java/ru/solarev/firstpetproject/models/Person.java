@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
@@ -24,9 +25,13 @@ public class Person {
     @NotEmpty(message = "Имя не должно быть пустым")
     @Column(name = "username")
     private String username;
-    @Min(value = 1900, message = "Год рождения должен быть больше 1900")
-    @Column(name = "year")
-    private int year;
+
+    @Pattern(regexp = "\\+7-\\d{3}-\\d{3}-\\d{2}-\\d{2}", message = "Format: +7-***-***-**-**")
+    @Column(name = "phone")
+    private String phone;
+    @Pattern(regexp = "\\w*@\\D*\\.\\D", message = "Format: test@yandex.ru")
+    @Column(name = "email")
+    private String email;
 
     @NotEmpty(message = "Пароль не должен быть пустым")
     @Column(name = "password")
@@ -39,9 +44,10 @@ public class Person {
     public Person() {
     }
 
-    public Person(String username, int year, String password) {
+    public Person(String username, String phone, String email, String password) {
         this.username = username;
-        this.year = year;
+        this.phone = phone;
+        this.email = email;
         this.password = password;
     }
 }
