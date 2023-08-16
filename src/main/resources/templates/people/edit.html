@@ -14,14 +14,13 @@
     <input type="text" th:field="*{phone}" id="phone">
     <div style="color: blueviolet" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone</div>
     <br>
-    <label for="email">Enter phone: </label>
+    <label for="email">Enter email: </label>
     <input type="text" th:field="*{email}" id="email">
     <div style="color: blueviolet" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email</div>
     <br>
-    <label for="password">Enter phone: </label>
-    <input type="text" th:field="*{password}" id="password">
-    <div style="color: blueviolet" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password</div>
+    <input type="hidden" th:field="*{password}" id="password">
     <br>
+
     <input type="submit" value="Update!">
 </form>
 

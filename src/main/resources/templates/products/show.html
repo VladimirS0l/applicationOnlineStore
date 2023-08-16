@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+<a th:text="${product.getName()} + ', ' + ${product.getDescription()} + ', ' + ${product.getPrice()}">value</a>
+<br>
+<hr>
+
+<div th:if="${owner}">
+    <span>Список товаров: </span><span th:text="${owner.getUsername()}">Person name</span>
+    <form th:method="PATCH" th:action="@{/products/{id}/realase(id=${product.getId()})}">
+        <input type="submit" value="Отказаться от товара">
+    </form>
+</div>
+
+<div th:if="${people}">
+    <span>Товар еще ни кто не заказал: </span>
+    <form th:method="PATCH" th:action="@{/products/{id}/assign(id=${product.getId()})}">
+        <label for="person"> Выберете человека: </label>
+        <select th:object="${person}" th:field="*{id}" id="person">
+            <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getUsername()}"></option>
+        </select>
+        <input type="submit" value="Взять товара">
+    </form>
+</div>
+<br>
+<hr>
+<form th:method="GET" th:action="@{/products/{id}/edit(id=${product.getId()})}">
+    <input type="submit" value="Редактировать">
+</form>
+<br>
+<hr>
+<form th:method="DELETE" th:action="@{/products/{id}(id=${product.getId()})}">
+    <input type="submit" value="Удалить">
+</form>
+<br>
+<a href="/products">Вернуться к списку товаров</a>
+
+</body>
+</html>

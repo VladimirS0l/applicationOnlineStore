@@ -1,10 +1,15 @@
 package ru.solarev.firstpetproject.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import ru.solarev.firstpetproject.models.Person;
 import ru.solarev.firstpetproject.models.Product;
 import ru.solarev.firstpetproject.repositories.ProductRepository;
 
+import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +22,36 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<Product> showAllProducts() {
-        return productRepository.findAll();
+    public List<Product> showAllProducts(boolean sortedByPrice) {
+        if (sortedByPrice) return productRepository.findAll(Sort.by("price"));
+        else return productRepository.findAll();
     }
+
+    public List<Product> showAllProducts(int page, int perPage, boolean sortedByPrice) {
+        if (sortedByPrice) return productRepository.findAll(PageRequest.of(page, perPage,
+                Sort.by("price"))).getContent();
+        else return productRepository.findAll(PageRequest.of(page, perPage)).getContent();
+    }
+
+    public Person getProductOwner(int id) {
+        return productRepository.findById(id).map(Product::getOwner).orElse(null);
+    }
+
+    @Transactional
+    public void realase(int id){
+        productRepository.findById(id).ifPresent(product ->{
+            product.setOwner(null);
+            product.setCreatedAt(null);}
+        );
+    }
+
+    @Transactional
+    public void assign(int id, Person person){
+        productRepository.findById(id).ifPresent(book -> {
+            book.setOwner(person);
+            book.setCreatedAt(new Date());});
+    }
+
 
     public Product showProduct(int id) {
         Optional<Product> optional = productRepository.findById(id);
@@ -37,5 +69,9 @@ public class ProductService {
 
     public void deleteProduct(int id) {
         productRepository.deleteById(id);
+    }
+
+    public List<Product> searchProduct(String name){
+        return productRepository.searchProductByNameStartingWith(name);
     }
 }

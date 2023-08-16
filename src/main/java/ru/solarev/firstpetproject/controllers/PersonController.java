@@ -56,8 +56,8 @@ public class PersonController {
     }
 
     @PatchMapping("/{id}")
-    public String updatePerson(@ModelAttribute("person") @Valid Person person,
-            BindingResult bindingResult, @PathVariable("id") int id){
+    public String updatePerson(@PathVariable("id") int id, @ModelAttribute("person") @Valid Person person,
+            BindingResult bindingResult){
         if (bindingResult.hasErrors()) return "people/edit";
         personService.updatePerson(id, person);
         return "redirect:/people";

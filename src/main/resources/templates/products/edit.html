@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit product</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/products/{id}(id=${product.getId()})}" th:object="${product}">
+    <label for="name">Name product</label>
+    <input type="text" th:field="*{name}" id="name">
+    <div style="color: blueviolet" th:if="${#fields.hasErrors('name')}" th:errors="*{product.getName()}">Name</div>
+    <br>
+    <label for="description">Description</label>
+    <input type="text" th:field="*{description}" id="description">
+    <div style="color: blueviolet" th:if="${#fields.hasErrors('description')}" th:errors="*{product.getDescription()}">Description</div>
+    <br>
+    <label for="price">Price</label>
+    <input type="text" th:field="*{price}" id="price">
+    <div style="color: blueviolet" th:if="${#fields.hasErrors('price')}" th:errors="*{product.getPrice()}">Price</div>
+    <br>
+    <input type="submit" value="Update!">
+</form>
+
+</body>
+</html>

@@ -10,9 +10,13 @@
     <input type="text" th:field="*{username}" id="username">
     <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>
       <br>
-      <label for="year">Введите год рождения пользователя: </label>
-      <input type="text" th:field="*{year}" id="year">
-      <div style="color: red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year Error</div>
+      <label for="phone">Введите телефон пользователя: </label>
+      <input type="text" th:field="*{phone}" id="phone">
+      <div style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone Error</div>
+      <br>
+      <label for="email">Введите электронную почту пользователя: </label>
+      <input type="text" th:field="*{email}" id="email">
+      <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
       <br>
       <label for="password">Введите пароль пользователя: </label>
       <input type="password" th:field="*{password}" id="password">

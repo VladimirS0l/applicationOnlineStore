@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+<div th:each="product : ${products}">
+    <a th:href="@{/products/{id}(id=${product.getId()})}"
+       th:text="${product.getName()} + ', ' + ${product.getDescription()} + ', ' + ${product.getPrice}">product</a>
+</div>
+<hr>
+<br>
+<a href="/products/new">Добавить новый товар</a>
+<br>
+<hr>
+<a href="/people">Посмотреть пользователей</a>
+</body>
+</html>

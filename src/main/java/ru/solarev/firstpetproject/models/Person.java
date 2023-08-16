@@ -26,10 +26,10 @@ public class Person {
     @Column(name = "username")
     private String username;
 
-    @Pattern(regexp = "\\+7-\\d{3}-\\d{3}-\\d{2}-\\d{2}", message = "Format: +7-***-***-**-**")
+    @Pattern(regexp = "\\+7\\d{10}", message = "Format: +7**********")
     @Column(name = "phone")
     private String phone;
-    @Pattern(regexp = "\\w*@\\D*\\.\\D", message = "Format: test@yandex.ru")
+//    @Pattern(regexp = "\\w*@\\D*\\.\\D", message = "Format: test@yandex.ru")
     @Column(name = "email")
     private String email;
 
@@ -38,7 +38,7 @@ public class Person {
     private String password;
     @Column(name = "role")
     private String role;
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "owner")
     List<Product> products;
 
     public Person() {

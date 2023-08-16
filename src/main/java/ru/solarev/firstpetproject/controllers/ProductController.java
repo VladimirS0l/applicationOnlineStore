@@ -7,33 +7,59 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.solarev.firstpetproject.models.Person;
 import ru.solarev.firstpetproject.models.Product;
+import ru.solarev.firstpetproject.services.PersonService;
 import ru.solarev.firstpetproject.services.ProductService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/products")
 public class ProductController {
 
     private final ProductService productService;
+    private final PersonService personService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, PersonService personService) {
         this.productService = productService;
+        this.personService = personService;
     }
 
-    public String showProducts(Model model) {
-        List<Product> products = productService.showAllProducts();
-        model.addAttribute("products", products);
+    @GetMapping
+    public String showProducts(@RequestParam(value = "page", required = false) Integer page,
+                               @RequestParam(value = "perPage", required = false) Integer perPage,
+                               @RequestParam(value = "sort", required = false) boolean sortByPrice,
+                               Model model) {
+        if (page == null || perPage == null) model.addAttribute("products",
+                productService.showAllProducts(sortByPrice));
+        else model.addAttribute("products", productService.showAllProducts(page, perPage, sortByPrice));
+
         return "products/index";
     }
 
     @GetMapping("/{id}")
-    public String showProduct(@PathVariable("id") int id, Model model) {
+    public String showProduct(@PathVariable("id") int id, Model model,
+                              @ModelAttribute("person") Person person) {
         model.addAttribute("product", productService.showProduct(id));
+        Person productOwner = productService.getProductOwner(id);
+
+        if (productOwner != null) model.addAttribute("owner", productOwner);
+        else model.addAttribute("people", personService.showAllPerson());
         return "products/show";
     }
+
+    @PatchMapping("/{id}/realase")
+    public String realase(@PathVariable("id") int id){
+        productService.realase(id);
+        return "redirect:/products/" + id;
+    }
+
+    @PatchMapping("/{id}/assign")
+    public String realase(@PathVariable("id") int id, @ModelAttribute("person") Person person){
+        productService.assign(id, person);
+        return "redirect:/products/" + id;
+    }
+
 
     @GetMapping("/new")
     public String newProduct(@ModelAttribute("product") Product product) {
@@ -43,9 +69,7 @@ public class ProductController {
     @PostMapping()
     public String createProduct(@ModelAttribute("product") @Valid Product product,
                                BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "products/new";
-        }
+        if (bindingResult.hasErrors()) return "products/new";
         productService.saveProduct(product);
         return "redirect:/products";
     }
@@ -68,5 +92,16 @@ public class ProductController {
     public String deletePerson(@PathVariable("id") int id) {
         productService.deleteProduct(id);
         return "redirect:/products";
+    }
+
+    @GetMapping("/search")
+    public String search(){
+        return "products/search";
+    }
+
+    @PostMapping("/search")
+    public String makeSearch(Model model, @RequestParam(value = "productSearch") String productSearch) {
+        model.addAttribute("goods", productService.searchProduct(productSearch));
+        return "products/search";
     }
 }

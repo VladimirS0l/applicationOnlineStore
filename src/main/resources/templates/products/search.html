@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search product</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/products/search}">
+    <label for="productSearch"> Search product</label>
+    <input type="text" id="productSearch" name="productSearch">
+    <br>
+    <input type="submit" value="Искать!">
+</form>
+<br>
+<hr>
+
+<div th:if="${goods}">
+    <div th:if="${goods.isEmpty()}">
+        <span>Товары не найдены </span>
+    </div>
+
+    <div th:each="product : ${goods}">
+        <p th:text="${product.getName() + ', ' + product.getDescription() + ', ' + product.getPrice()}">product</p>
+
+        <div th:if="${product.getOwner()} != null">
+            <span>Товар сейчас у: </span> <span th:text="${book.getOwner().getUsername()}">Person name </span>
+        </div>
+
+        <div th:if="${product.getOwner()} == null">
+            <span>Товар еще ни кто не выбрал </span>
+        </div>
+    </div>
+</div>
+
+<br>
+<hr>
+</body>
+</html>
