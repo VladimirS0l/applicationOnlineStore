@@ -54,9 +54,16 @@ public class ProductController {
         return "redirect:/products/" + id;
     }
 
+//    @PatchMapping("/{id}/assign")
+//    public String realase(@PathVariable("id") int id, @ModelAttribute("person") Person person){
+//        productService.assign(id, person);
+//        return "redirect:/products/" + id;
+//    }
+
     @PatchMapping("/{id}/assign")
-    public String realase(@PathVariable("id") int id, @ModelAttribute("person") Person person){
-        productService.assign(id, person);
+    public String realase(@PathVariable("id") int id, @ModelAttribute("person") Person person,
+                          @ModelAttribute("product") Product product){
+        productService.assign(id, person, product);
         return "redirect:/products/" + id;
     }
 

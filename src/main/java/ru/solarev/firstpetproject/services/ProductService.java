@@ -41,15 +41,26 @@ public class ProductService {
     public void realase(int id){
         productRepository.findById(id).ifPresent(product ->{
             product.setOwner(null);
-            product.setCreatedAt(null);}
+            product.setCreatedAt(null);
+            product.setCount(0);}
         );
     }
 
+//    @Transactional
+//    public void assign(int id, Person person){
+//        productRepository.findById(id).ifPresent(product -> {
+//            product.setOwner(person);
+//            product.setCreatedAt(new Date());
+//            });
+//    }
+
     @Transactional
-    public void assign(int id, Person person){
-        productRepository.findById(id).ifPresent(book -> {
-            book.setOwner(person);
-            book.setCreatedAt(new Date());});
+    public void assign(int id, Person person, Product count){
+        productRepository.findById(id).ifPresent(product -> {
+            product.setOwner(person);
+            product.setCreatedAt(new Date());
+            product.setCount(count.getCount());});
+
     }
 
 

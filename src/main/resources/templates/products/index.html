@@ -7,13 +7,16 @@
 <body>
 <div th:each="product : ${products}">
     <a th:href="@{/products/{id}(id=${product.getId()})}"
-       th:text="${product.getName()} + ', ' + ${product.getDescription()} + ', ' + ${product.getPrice}">product</a>
+       th:text="${product.getName()} + ', ' + ${product.getDescription()} + ', ' + ${product.getPrice()}">product</a>
 </div>
-<hr>
-<br>
-<a href="/products/new">Добавить новый товар</a>
-<br>
-<hr>
-<a href="/people">Посмотреть пользователей</a>
+
+<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+    <hr>
+    <br>
+    <a href="/products/new">Добавить новый товар</a>
+    <br>
+    <hr>
+    <a href="/people">Посмотреть пользователей</a>
+</div>
 </body>
 </html>

@@ -9,7 +9,6 @@ import ru.solarev.firstpetproject.models.Person;
 import ru.solarev.firstpetproject.repositories.PeopleRepository;
 import ru.solarev.firstpetproject.security.PersonDetails;
 
-
 import java.util.Optional;
 
 @Service
