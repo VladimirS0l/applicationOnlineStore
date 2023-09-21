@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/weather/}" th:object="${cityStr}">
+<!--    <label for="cityStr"> Enter your name</label>-->
+<!--    <input type="text" id="cityStr" name="cityStr">-->
+    <label for="name"> Name product</label>
+    <input type="text" th:field="*{name}" id="name">
+    <br>
+    <button type="submit">Send</button>
+</form>
+<!--<form name="f" method="POST" th:action="@{/weather/}">-->
+<!--    <label for="cityStr">Введите город</label>-->
+<!--    <input type="text" name="cityStr" id="cityStr"/>-->
+<!--    <br/>-->
+<!--    <input type="submit" value="Send">-->
+<!--</form>-->
+
+<hr>
+<br>
+
+Country  <p th:text="${city.getCountry()}"></p>
+City  <p th:text="${city.getCity()}"></p>
+Temperature  <p th:text="${city.getTemperature()}"></p>
+Description  <p th:text="${city.getDescription()}"></p>
+
+</body>
+</html>

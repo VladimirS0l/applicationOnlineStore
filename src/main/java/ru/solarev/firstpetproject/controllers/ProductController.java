@@ -11,6 +11,7 @@ import ru.solarev.firstpetproject.services.PersonService;
 import ru.solarev.firstpetproject.services.ProductService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/products")
@@ -29,10 +30,17 @@ public class ProductController {
     public String showProducts(@RequestParam(value = "page", required = false) Integer page,
                                @RequestParam(value = "perPage", required = false) Integer perPage,
                                @RequestParam(value = "sort", required = false) boolean sortByPrice,
-                               Model model) {
+                               Model model, Principal principal) {
         if (page == null || perPage == null) model.addAttribute("products",
                 productService.showAllProducts(sortByPrice));
         else model.addAttribute("products", productService.showAllProducts(page, perPage, sortByPrice));
+
+        if (principal != null) {
+            Person person = personService.showByName(principal.getName());
+            System.out.println(person.getEmail());
+        }
+
+        System.out.println();
 
         return "products/index";
     }
@@ -54,19 +62,12 @@ public class ProductController {
         return "redirect:/products/" + id;
     }
 
-//    @PatchMapping("/{id}/assign")
-//    public String realase(@PathVariable("id") int id, @ModelAttribute("person") Person person){
-//        productService.assign(id, person);
-//        return "redirect:/products/" + id;
-//    }
-
     @PatchMapping("/{id}/assign")
     public String realase(@PathVariable("id") int id, @ModelAttribute("person") Person person,
                           @ModelAttribute("product") Product product){
         productService.assign(id, person, product);
         return "redirect:/products/" + id;
     }
-
 
     @GetMapping("/new")
     public String newProduct(@ModelAttribute("product") Product product) {

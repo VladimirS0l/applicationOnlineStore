@@ -23,7 +23,7 @@
         <p th:text="${product.getName() + ', ' + product.getDescription() + ', ' + product.getPrice()}">product</p>
 
         <div th:if="${product.getOwner()} != null">
-            <span>Товар сейчас у: </span> <span th:text="${book.getOwner().getUsername()}">Person name </span>
+            <span>Товар сейчас у: </span> <span th:text="${product.getOwner().getUsername()}">Person name </span>
         </div>
 
         <div th:if="${product.getOwner()} == null">
