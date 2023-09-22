@@ -29,6 +29,16 @@ public class PersonService {
         return optional.orElse(null);
     }
 
+    public Person showByName(String name) {
+        Optional<Person> optional = peopleRepository.findByUsername(name);
+        return optional.orElse(null);
+    }
+
+    public Person showByEmail(String email) {
+        Optional<Person> optional = peopleRepository.findByEmail(email);
+        return optional.orElse(null);
+    }
+
     public void savePerson(Person person) {
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setRole("ROLE_USER");

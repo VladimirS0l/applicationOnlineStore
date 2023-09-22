@@ -1,52 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layouts/layout}">
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
 <body>
-<a th:text="${product.getName()} + ', ' + ${product.getDescription()} + ', ' + ${product.getPrice()}">value</a>
-<br>
-<hr>
+<div class="container-lg">
+    <div class="container">
 
-<div th:if="${owner}">
-    <span>Список товаров: </span><span th:text="${owner.getUsername()}">Person name</span>
-    <form th:method="PATCH" th:action="@{/products/{id}/realase(id=${product.getId()})}">
-        <input type="submit" value="Отказаться от товара">
-    </form>
+        <div class="sideba" layout:fragment="sidebar">
+            <a th:text="${product.getName()} + ', ' + ${product.getDescription()} + ', ' + ${product.getPrice()}">value</a>
+            <br>
+            <hr>
+            <div>
+                <form th:method="GET" th:action="@{/card/{id}/addCard(id=${product.getId()})}">
+                    <input class="btn btn-primary" type="submit" value="Добавить товар в корзину">
+                </form>
+            </div>
+            <br>
+            <hr>
+            <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                <form th:method="GET" th:action="@{/products/{id}/edit(id=${product.getId()})}">
+                    <input class="btn btn-primary" type="submit" value="Редактировать">
+                </form>
+            </div>
+            <br>
+            <hr>
+            <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+                <form th:method="DELETE" th:action="@{/products/{id}(id=${product.getId()})}">
+                    <input class="btn btn-primary" type="submit" value="Удалить">
+                </form>
+            </div>
+            <br>
+            <a class="btn btn-primary" href="/products">Вернуться к списку товаров</a>
+        </div>
+    </div>
 </div>
-
-<div th:if="${people}">
-    <span>Товар еще ни кто не заказал: </span>
-    <form th:method="PATCH" th:object="${product}" th:action="@{/products/{id}/assign(id=${product.getId()})}">
-        <label for="person"> Выберете человека: </label>
-        <select th:object="${person}" th:field="*{id}" id="person">
-            <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getUsername()}"></option>
-        </select>
-        <label for="count">Count</label>
-        <input type="text" th:field="*{count}" id="count">
-        <div style="color: blueviolet" th:if="${#fields.hasErrors('count')}" th:errors="*{product.getCount()}">Count</div>
-        <br>
-
-        <input type="submit" value="Взять товар">
-    </form>
-</div>
-<br>
-<hr>
-<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-    <form th:method="GET" th:action="@{/products/{id}/edit(id=${product.getId()})}">
-        <input type="submit" value="Редактировать">
-    </form>
-</div>
-<br>
-<hr>
-<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-    <form th:method="DELETE" th:action="@{/products/{id}(id=${product.getId()})}">
-        <input type="submit" value="Удалить">
-    </form>
-</div>
-<br>
-<a href="/products">Вернуться к списку товаров</a>
-
 </body>
 </html>

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> searchProductByNameStartingWith(String name);
+    List<Product> searchProductByNameContains(String name);
 }
