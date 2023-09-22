@@ -1,0 +1,37 @@
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Shop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/products">Products</a>
+            </li>
+          </ul>
+          <div class="navbar__auth">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="btn btn-success" aria-current="page" href="/card/">Корзина</a>
+              </li>
+              <li>
+                <p>-</p>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-outline-success" aria-current="page" href="/auth/login">Войти</a>
+              <li>
+                <p>-</p>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-outline-success" aria-current="page" href="/auth/registration">Регистрация</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+</div>

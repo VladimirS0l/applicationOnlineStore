@@ -25,11 +25,11 @@ public class WeatherController {
 
     @GetMapping("/")
     public String getWeather(Model model, HttpServletRequest request) throws JsonProcessingException {
-//        String ipAddress = request.getHeader("X-FORWARDED-FOR");
-//        if (ipAddress == null) {
-//            ipAddress = request.getRemoteAddr();
-//        }
-//        System.out.println(ipAddress);
+        String ipAddress = request.getHeader("X-FORWARDED-FOR");
+        if (ipAddress == null) {
+            ipAddress = request.getRemoteAddr();
+        }
+        System.out.println(ipAddress);
         model.addAttribute("cityStr", new City());
         model.addAttribute("city", weather);
         return "weather/get";

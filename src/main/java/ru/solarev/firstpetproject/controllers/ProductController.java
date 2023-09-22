@@ -26,22 +26,21 @@ public class ProductController {
         this.personService = personService;
     }
 
+//    @GetMapping
+//    public String showProducts(@RequestParam(value = "page", required = false) Integer page,
+//                               @RequestParam(value = "perPage", required = false) Integer perPage,
+//                               @RequestParam(value = "sort", required = false) boolean sortByPrice,
+//                               Model model, Principal principal) {
+//        if (page == null || perPage == null) model.addAttribute("products",
+//                productService.showAllProducts(sortByPrice));
+//        else model.addAttribute("products", productService.showAllProducts(page, perPage, sortByPrice));
+//        return "products/index";
+//    }
     @GetMapping
-    public String showProducts(@RequestParam(value = "page", required = false) Integer page,
-                               @RequestParam(value = "perPage", required = false) Integer perPage,
-                               @RequestParam(value = "sort", required = false) boolean sortByPrice,
-                               Model model, Principal principal) {
-        if (page == null || perPage == null) model.addAttribute("products",
-                productService.showAllProducts(sortByPrice));
-        else model.addAttribute("products", productService.showAllProducts(page, perPage, sortByPrice));
-
-        if (principal != null) {
-            Person person = personService.showByName(principal.getName());
-            System.out.println(person.getEmail());
-        }
-
-        System.out.println();
-
+    public String showProducts(@RequestParam(value = "filter", required = false) String word,
+                               Model model) {
+        if (word == null) model.addAttribute("products", productService.showAll());
+        else model.addAttribute("products", productService.showAllByName(word));
         return "products/index";
     }
 

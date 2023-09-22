@@ -22,6 +22,14 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
+    public List<Product> showAllByName(String word) {
+        return productRepository.searchProductByNameContains(word);
+    }
+
+    public List<Product> showAll() {
+        return productRepository.findAll();
+    }
+
     public List<Product> showAllProducts(boolean sortedByPrice) {
         if (sortedByPrice) return productRepository.findAll(Sort.by("price"));
         else return productRepository.findAll();
@@ -46,21 +54,12 @@ public class ProductService {
         );
     }
 
-//    @Transactional
-//    public void assign(int id, Person person){
-//        productRepository.findById(id).ifPresent(product -> {
-//            product.setOwner(person);
-//            product.setCreatedAt(new Date());
-//            });
-//    }
-
     @Transactional
     public void assign(int id, Person person, Product count){
         productRepository.findById(id).ifPresent(product -> {
             product.setOwner(person);
             product.setCreatedAt(new Date());
             product.setCount(count.getCount());});
-
     }
 
 
