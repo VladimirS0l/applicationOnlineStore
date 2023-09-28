@@ -5,20 +5,18 @@
     <title>People</title>
 </head>
 <body>
-    <div th:each="person : ${people}">
-        <a th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.getUsername()} + ', ' + ${person.getPhone()}">user</a>
-    </div>
+<div th:each="person : ${people}">
+    <a th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.getUsername()} + ', ' + ${person.getPhone()}">user</a>
+</div>
 <br>
 <hr>
-<a href="/people/new">Create new person</a>
-
+<a href="/people/new">Зарегистрировать нового пользователя</a>
 <br>
 <hr>
 <a href="/products">Перейти к товарам</a>
-
-    <br>
-    <hr>
-    <a href="/products/search">Перейти в поиск</a>
+<br>
+<hr>
+<a href="/products/search">Перейти в поиск</a>
 
 </body>
 </html>

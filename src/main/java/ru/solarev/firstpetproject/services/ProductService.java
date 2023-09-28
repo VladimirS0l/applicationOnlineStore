@@ -30,39 +30,6 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<Product> showAllProducts(boolean sortedByPrice) {
-        if (sortedByPrice) return productRepository.findAll(Sort.by("price"));
-        else return productRepository.findAll();
-    }
-
-    public List<Product> showAllProducts(int page, int perPage, boolean sortedByPrice) {
-        if (sortedByPrice) return productRepository.findAll(PageRequest.of(page, perPage,
-                Sort.by("price"))).getContent();
-        else return productRepository.findAll(PageRequest.of(page, perPage)).getContent();
-    }
-
-    public Person getProductOwner(int id) {
-        return productRepository.findById(id).map(Product::getOwner).orElse(null);
-    }
-
-    @Transactional
-    public void realase(int id){
-        productRepository.findById(id).ifPresent(product ->{
-            product.setOwner(null);
-            product.setCreatedAt(null);
-            product.setCount(0);}
-        );
-    }
-
-    @Transactional
-    public void assign(int id, Person person, Product count){
-        productRepository.findById(id).ifPresent(product -> {
-            product.setOwner(person);
-            product.setCreatedAt(new Date());
-            product.setCount(count.getCount());});
-    }
-
-
     public Product showProduct(int id) {
         Optional<Product> optional = productRepository.findById(id);
         return optional.orElse(null);

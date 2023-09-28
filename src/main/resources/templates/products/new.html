@@ -15,6 +15,10 @@
     <input type="text" th:field="*{description}" id="description">
     <div style="color: blueviolet" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description</div>
     <br>
+    <label for="pathImg">Path image</label>
+    <input type="text" th:field="*{pathImg}" id="pathImg">
+    <div style="color: blueviolet" th:if="${#fields.hasErrors('pathImg')}" th:errors="*{pathImg}">Path</div>
+    <br>
     <label for="price">Price product</label>
     <input type="text" th:field="*{price}" id="price">
     <div style="color: blueviolet" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Price</div>
