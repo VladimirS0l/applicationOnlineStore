@@ -15,4 +15,3 @@ TOKEN_WEATHER=
 
 ![Скриншот экрана с работающим приложением](docs/Main.png)
 
-Стэк: Maven, Spring Web, Spring Data JPA, Spring Security, Spring Boot Validation, Thymeleaf, PostgreSQL.
