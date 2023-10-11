@@ -1,0 +1,37 @@
+version: '3'
+
+volumes:
+  db-data:
+    driver: local
+
+services:
+  app:
+    build:
+      context: .
+    container_name: shop_with_thymeleaf
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+      - '8080:8080'
+
+  db:
+    image: postgres:13-alpine
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_NAME_TABLE}
+
+  flyway:
+    container_name: flyway_container
+    image: flyway/flyway
+    command:
+      -url=jdbc:postgresql://postgres:5432/${POSTGRES_NAME_TABLE} -schemas=public -user=${POSTGRES_USERNAME} -password=${POSTGRES_PASSWORD} -connectRetries=30 migrate
+    volumes:
+      - ./src/main/resources/db/migration:/flyway/sql
+    depends_on:
+      - db
+
+

@@ -12,7 +12,6 @@ import ru.solarev.firstpetproject.models.Person;
 import ru.solarev.firstpetproject.models.Product;
 import ru.solarev.firstpetproject.services.PersonService;
 import ru.solarev.firstpetproject.services.ProductService;
-
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;

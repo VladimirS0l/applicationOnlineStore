@@ -9,11 +9,10 @@ import org.springframework.web.client.RestTemplate;
 import ru.solarev.firstpetproject.models.Weather;
 
 @Component
-
 public class WeatherService {
     RestTemplate restTemplate = new RestTemplate();
 
-    @Value("${weather.tokenWeather}")
+    @Value("${TOKEN_WEATHER}")
     private String tokenWeather;
 
     public Weather getWeather(String city) throws JsonProcessingException {
