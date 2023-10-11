@@ -1,6 +1,8 @@
 ## Приложение Онлайн-магазин
 
-Стэк: Maven, Spring Web, Spring Data JPA, Spring Security, Spring Boot Validation, Thymeleaf, PostgreSQL.
+Стек технологий, использованных в проекте:
+
+Maven, Spring Web, Spring Data JPA, Spring Security, Spring Boot Validation, Thymeleaf, PostgreSQL.
 
 Чтобы запустить это приложение, вам необходимо создать файл .env в корневом каталоге со следующими средами:
 
